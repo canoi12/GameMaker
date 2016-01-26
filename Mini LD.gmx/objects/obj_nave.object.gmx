@@ -86,8 +86,8 @@ if(x &gt; 900){
 } else {
     image_speed = 1;
 }
-    part_emitter_region(ps,pemitter,x-25,x-25,y+3,y+3,ps_shape_ellipse,ps_distr_linear);
-    part_emitter_stream(ps,pemitter,pt,2);
+part_emitter_region(ps,pemitter,x-25,x-25,y+3,y+3,ps_shape_ellipse,ps_distr_linear);
+part_emitter_stream(ps,pemitter,pt,2);
 if(keyboard_check(vk_down)){
     y+= 8;
     image_index = 2;
