@@ -1,0 +1,20 @@
+GIMP Palette
+Name: Pico8
+Columns: 4
+#
+  0   0   0	black
+ 32  51 123	dark_blue
+126  37  83	dark_purple
+  0 144  61	dark_green
+171  82  54	brown
+ 52  54  53	dark_gray
+194 195 199	light_gray
+255 241 232	white
+255   0  77	red
+255 155   0	orange
+255 231  39	yellow
+  0 226  50	green
+ 41 173 255	blue
+132 112 169	indigo
+255 119 168	pink
+255 214 197	peach
