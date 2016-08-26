@@ -31,6 +31,7 @@ creator = 0;
 alarm[0] = room_speed;
 i = 0; // Variável para auxiliar o movimento de laser
 tipo = 0; // se for 0, a nave atira para baixo. Se for 1, a nave atira para cima
+corLaser = make_colour_rgb(224,82,255);
 
 </string>
           </argument>
@@ -122,13 +123,13 @@ tipo = 0; // se for 0, a nave atira para baixo. Se for 1, a nave atira para cima
           <argument>
             <kind>1</kind>
             <string>if(tipo == 0){
-    draw_circle_colour(x-6+(irandom_range(-1,1)),y+36,14,c_black,c_black,false);
-    draw_line_width_colour(x-6+(irandom_range(-1,1)),y+36,x-6+(irandom_range(-1,1)),i+36,10,c_black,c_black);
+    draw_circle_colour(x-6+(irandom_range(-1,1)),y+36,14,corLaser,corLaser,false);
+    draw_line_width_colour(x-6+(irandom_range(-1,1)),y+36,x-6+(irandom_range(-1,1)),i+36,10,corLaser,corLaser);
     draw_circle_colour(x-6+(irandom_range(-1,1)),y+36,12,c_white,c_white,false);
     draw_line_width_colour(x-6+(irandom_range(-1,1)),y+36,x-6+(irandom_range(-1,1)),i+36,8,c_white,c_white);
 } else {
-    draw_circle_colour(x-6+(irandom_range(-1,1)),y-36,14,c_black,c_black,false);
-    draw_line_width_colour(x-6+(irandom_range(-1,1)),y-36,x-6+(irandom_range(-1,1)),i-36,10,c_black,c_black);
+    draw_circle_colour(x-6+(irandom_range(-1,1)),y-36,14,corLaser,corLaser,false);
+    draw_line_width_colour(x-6+(irandom_range(-1,1)),y-36,x-6+(irandom_range(-1,1)),i-36,10,corLaser,corLaser);
     draw_circle_colour(x-6+(irandom_range(-1,1)),y-36,12,c_white,c_white,false);
     draw_line_width_colour(x-6+(irandom_range(-1,1)),y-36,x-6+(irandom_range(-1,1)),i-36,8,c_white,c_white);
 }

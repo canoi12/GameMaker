@@ -2,7 +2,7 @@
 // Simple passthrough vertex shader
 //
 attribute vec3 in_Position;                  // (x,y,z)
-//attribute vec3 in_Normal;                  // (x,y,z)     unused in this shader.	
+//attribute vec3 in_Normal;                  // (x,y,z)     unused in this shader.
 attribute vec4 in_Colour;                    // (r,g,b,a)
 attribute vec2 in_TextureCoord;              // (u,v)
 
@@ -11,8 +11,12 @@ varying vec4 v_vColour;
 
 void main()
 {
+    mat4 teste = mat4(1.0, 0.0, 0.0, 0.0, 
+                      0.0, 1.0, 0.0, 0.0, 
+                      0.0, 0.0, 1.0, 0.0, 
+                      0.0, 0.0, 0.0, 1.0);
     vec4 object_space_pos = vec4( in_Position.x, in_Position.y, in_Position.z, 1.0);
-    gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
+    gl_Position = teste * gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_pos;
     
     v_vColour = in_Colour;
     v_vTexcoord = in_TextureCoord;
@@ -32,6 +36,13 @@ float cmaxpal[4];
 
 void main()
 {
+    mat4 teste = mat4(2.0, 0.0, 0.0, 0.0, 
+                      0.0, 2.0, 0.0, 0.0, 
+                      0.0, 0.0, 2.0, 0.0, 
+                      0.0, 0.0, 0.0, 1.0);
+    mat3 teste2 = mat3(2.0, 0.0, 0.0,
+                      0.0, 1.0, 0.0,
+                      0.0, 0.0, 1.0);
      vec2 uv = v_vTexcoord;
      palette[0] = vec3(43.0,83.0,59.0)/255.0;
      palette[1] = vec3(89.0,145.0,102.0)/255.0;
@@ -43,7 +54,7 @@ void main()
      }
      //uv.x += sin(uv.y*20.0+u_time*2.0)/30.0;
      //uv.y += cos(uv.x*20.0+u_time*2.0)/30.0;
-     vec4 col = v_vColour * texture2D( gm_BaseTexture, uv);
+     vec4 col = v_vColour * teste * texture2D( gm_BaseTexture, uv);
      float cmax = max(col.r,max(col.g,col.b));
      
      for(int i = 0; i < 4; i++){

@@ -25,13 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited();
-hspeed = 0;
-vida = 3;
-parar = false;
-sobe = false;
-alarm[0] = room_speed/5;
-pontos = 2;
+            <string>    event_inherited();
+    hspeed = 0;
+    vida = 3;
+    parar = false;
+    sobe = false;
+    alarm[0] = room_speed/5;
+    pontos = 75;
 </string>
           </argument>
         </arguments>
@@ -54,8 +54,8 @@ pontos = 2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>parar = false;
-alarm[0] = room_speed/5;
+            <string>    parar = false;
+    alarm[0] = room_speed/5;
 </string>
           </argument>
         </arguments>
@@ -78,8 +78,8 @@ alarm[0] = room_speed/5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(x-21,y-20,obj_bullet_turret);
-alarm[2] = room_speed*1.5;
+            <string>    instance_create(x-21,y-20,obj_bullet_turret);
+    alarm[2] = room_speed*1.5;
 </string>
           </argument>
         </arguments>
@@ -102,13 +102,13 @@ alarm[2] = room_speed*1.5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>sobe = !sobe;
-parar = true;
-if(parar){
-    instance_create(x-21,y-20,obj_bullet_turret);
-}
-randomize();
-alarm[1] = room_speed/2;
+            <string>    sobe = !sobe;
+    parar = true;
+    if(parar){
+        instance_create(x-21,y-20,obj_bullet_turret);
+    }
+    randomize();
+    alarm[1] = room_speed/2;
 </string>
           </argument>
         </arguments>
@@ -131,21 +131,21 @@ alarm[1] = room_speed/2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited();
-if(parar == false){
-    if(sobe == false){
-        if(x &gt; 580){
-            x-= 8;
+            <string>    event_inherited();
+    if(parar == false){
+        if(sobe == false){
+            if(x &gt; 580){
+                x-= 8;
+            }
+            y+=24;
         }
-        y+=24;
-    }
-    else {
-        if(x &gt; 580){
-            x-= 8;
+        else {
+            if(x &gt; 580){
+                x-= 8;
+            }
+            y-=24;
         }
-        y-=24;   
     }
-}
 </string>
           </argument>
         </arguments>

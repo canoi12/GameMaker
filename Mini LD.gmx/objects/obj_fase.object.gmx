@@ -25,11 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[0] = room_speed*3;
+            <string>alarm[0] = room_speed*(1.5/global.velPlayer*3);
 // Chances que cada nave tem inicialmente de aparecer
 chances[0] = 70
 chances[1] = 100
 chances[2] = -1
+chances[3] = -1
 </string>
           </argument>
         </arguments>
@@ -52,37 +53,64 @@ chances[2] = -1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>cnave = irandom_range(global.dificuldade,global.dificuldade+1)
-var odds = irandom(100);
-if(!global.desafios){
-    if(odds &lt;= chances[0]){
-        var nave1 = instance_create(room_width + 200,irandom_range(100,300),obj_inimigo_kamikaze);
-        instance_create(nave1.x + 30, nave1.y - 20,obj_inimigo_kamikaze);
-        instance_create(nave1.x + 30, nave1.y + 20,obj_inimigo_kamikaze);
-        instance_create(nave1.x + 60, nave1.y - 35,obj_inimigo_kamikaze);
-        instance_create(nave1.x + 60, nave1.y + 35,obj_inimigo_kamikaze);
+            <string>    var cnave = irandom_range(global.dificuldade,global.dificuldade+1);
+    var odds = irandom(100);
+    if(!global.desafios){
+        if(odds &lt;= chances[0]){
+            var nave1 = instance_create(room_width + 200,irandom_range(200,300),obj_inimigo_minion);
+            instance_create(nave1.x + 30, nave1.y - 20,obj_inimigo_minion);
+            instance_create(nave1.x + 30, nave1.y + 20,obj_inimigo_minion);
+            instance_create(nave1.x + 60, nave1.y - 35,obj_inimigo_minion);
+            instance_create(nave1.x + 60, nave1.y + 35,obj_inimigo_minion);
+        }
+        else if(instance_number(obj_inimigo_kamikaze) &lt; 5 &amp;&amp; odds &lt;= chances[1]){
+            var nave1 = instance_create(room_width,irandom_range(200,300),obj_inimigo_kamikaze);
+            instance_create(nave1.x, nave1.y - 60,obj_inimigo_kamikaze);
+            /*instance_create(nave1.x + 50, nave1.y - 30,obj_inimigo_kamikaze);
+        instance_create(nave1.x + 50, nave1.y + 30,obj_inimigo_kamikaze);*/
+        }
+        else if(odds &lt;= chances[2]){
+            var nave1 = instance_create(room_width + 200,irandom_range(100,150),obj_inimigo_laserbarrier);
+            var nave2 = instance_create(nave1.x,nave1.y + 200,obj_inimigo_laserbarrier);
+            nave2.image_angle = 180;
+        }
+        else if(odds &lt;= chances[3])
+        {
+            var nave1 = instance_create(room_width+200,irandom_range(200,300),obj_inimigo_serpente_head);
+        }
+    } else {
+        if(!instance_exists(obj_miniBoss_1) and global.desafioAtual == 1){
+            instance_create(920,200,obj_miniBoss_1);
+        }
+        
     }
-    else if(instance_number(obj_inimigo_turret) &lt; 5 &amp;&amp; odds &lt;= chances[1]){
-        var nave1 = instance_create(room_width,irandom_range(50,200),obj_inimigo_turret);
-        instance_create(nave1.x + 50, nave1.y - 30,obj_inimigo_turret);
-        instance_create(nave1.x + 50, nave1.y + 30,obj_inimigo_turret);
+    if(room == Testes){
+        var nave1 = instance_create(room_width+200,irandom_range(200,300),obj_inimigo_serpente_head);
+        alarm[0] = room_speed;
     }
-    else if(odds &lt;= chances[2]){
-        var nave1 = instance_create(room_width + 200,irandom_range(50,150),obj_inimigo_laserbarrier);
-        var nave2 = instance_create(nave1.x,nave1.y + 200,obj_inimigo_laserbarrier);
-        nave2.image_angle = 180;
+    randomize();
+    if global.dificuldade == 0 {
+        chances[0] = 70
+        chances[1] = 100
+    } else if global.dificuldade == 1{
+        chances[0] = 30
+        chances[1] = 70
+        chances[2] = 100
     }
-}
-randomize();
-if global.dificuldade == 0 {
-    chances[0] = 70
-    chances[1] = 100
-} else if global.dificuldade == 1{
-    chances[0] = 30
-    chances[1] = 70
-    chances[2] = 100
-}
-alarm[0] = room_speed*1.5;
+    else if global.dificuldade == 2
+    {
+        chances[0] = -1;
+        chances[1] = 30
+        chances[2] = 70
+        chances[3] = 100
+    }
+    if(instance_exists(obj_nave)){
+        if(obj_nave.jogar){
+            alarm[0] = room_speed*(1.5/global.velPlayer);
+        } else {
+            alarm[0] = room_speed*(1.5/global.velPlayer*5);
+        }
+    }
 </string>
           </argument>
         </arguments>

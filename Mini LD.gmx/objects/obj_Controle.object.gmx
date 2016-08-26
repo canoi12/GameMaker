@@ -25,45 +25,96 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Variáveis globais
-ini_open("SaveData.sav")
-global.energia = ini_read_real("Upgrades","Energia",1000);
-global.velBala = 10;
-global.distBala = ini_read_real("Upgrades","Distancia da Bala",1);
-global.qtdBala = ini_read_real("Upgrades","Timing da Bala",6);
-global.pontos = ini_read_real("Pontos","pontos",0);
-ini_close();
+            <string>    // Variáveis globais
+    ini_open("SaveData.sav")
+    /*global.energia = ini_read_real("Upgrades","Energia",1000);
+    global.velBala = 10;
+    global.distBala = ini_read_real("Upgrades","Distancia da Bala",1);
+    global.qtdBala = ini_read_real("Upgrades","Timing da Bala",6);*/
+    // Upgrades
+    global.Upgrade[0,0] = ini_read_real("Upgrades", "energia", 0);
+    global.Upgrade[1,0] = ini_read_real("Upgrades", "impulso", 0);
+    global.Upgrade[2,0] = ini_read_real("Upgrades", "spawn_energia", 0);
+    global.pontos = ini_read_real("Pontos","pontos",0);
+    ini_close();
+    
+    global.energia = 1000;
+    global.velBala = 10;
+    global.distBala = 1;
+    global.qtdBala = 6;
 
-colBarras = make_colour_rgb(16,214,181); // Cor das barras
+    global.colBarras = make_colour_rgb(16,214,181); // Cor das barras
 
-global.piloto = 0; // Piloto atual
+    global.piloto = 0; // Piloto atual
+    
+    global.font = font_add_sprite_ext(spr_numb_font,"0123456789",false,-1); // Sprite fonte de números
 
-global.upgrade = true; // Controle da tela de Updgrde
-global.progresso = 0; // Barra de progresso
-global.km = 0; // Distancia atual
-global.dificuldade = 0; // Dificuldade atual
-global.combo = 0; // Combo
-global.barraCombo = 100; // Barra de combo
-global.pause = false; // Variável que controla a pausa do jogo
-global.desafios = false; // Variável que para a aparição das naves inimigas, quando o jogador chegar aos pontos de MiniBosses
-global.desafioAtual = 1; // Variável que controla qual o desafio que será exibido
+    global.upgrade = true; // Controle da tela de Upgrade
+    global.progresso = 40; // Barra de progresso
+    global.km = 0; // Distancia atual
+    global.dificuldade = 0; // Dificuldade atual
+    global.combo = 0; // Combo
+    global.barraCombo = 100; // Barra de combo
+    global.nivelCombo = 0; // Nível atual do combo
+    global.pause = false; // Variável que controla a pausa do jogo
+    global.desafios = false; // Variável que para a aparição das naves inimigas, quando o jogador chegar aos pontos de MiniBosses
+    global.desafioAtual = 1; // Variável que controla qual o desafio que será exibido
+    global.itemEnergia = 10; // Quanto cada item de energia cura
+    global.velPlayer = 1; // Velocidade do player, usado para aumentar a velocidade do background e progresso
+    global.parteAtual = 1; // Parte atual da fase
+    
+    /*
+    // Upgrades
+    global.Upgrade[0,0] = 0
+    global.Upgrade[1,0] = 0
+    global.Upgrade[2,0] = 0*/
+    
+    // Pixel Perfect Camera
+    script_execute(scr_InitGame);
+    view_wport[0] = global.gameWidth;
+    view_hport[0] = global.gameHeight;
+    view_wview[0] = global.gameWidth;
+    view_hview[0] = global.gameHeight;
 
-// Pixel Perfect Camera
-script_execute(scr_InitGame);
-view_wport[0] = global.gameWidth;
-view_hport[0] = global.gameHeight;
-view_wview[0] = global.gameWidth;
-view_hview[0] = global.gameHeight;
+    display_set_gui_size(global.gameWidth*global.zoom,global.gameHeight*global.zoom);
 
-display_set_gui_size(global.gameWidth*global.zoom,global.gameHeight*global.zoom);
+    // Variáveis para o shader
+    i = 0;
+    time = shader_get_uniform(shd_ascii,"u_time");
+    mouse = shader_get_uniform(shd_ascii,"u_mouse");
+    resolution = shader_get_uniform(shd_ascii,"u_resolution");
+    entity = shader_get_uniform(shd_ascii,"u_uEntity");
 
-// Variáveis para o shader
-i = 0;
-time = shader_get_uniform(shd_ascii,"u_time");
-mouse = shader_get_uniform(shd_ascii,"u_mouse");
-resolution = shader_get_uniform(shd_ascii,"u_resolution");
+    
+    parteAtual = 1;
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Textos do jogo
 
+ // Introdução
+ global.textIntro[0] = "They came in a day like any other, raining fire from the sky, destroying everything on ther path,before we even had the time to notice more than half of the planet was wiped out.";
+ global.textIntro[1] = "Through the sacrifices of many lives and sheer luck,the brightest minds of science managed to escape into a secrect underground base, away from the enemy's eye.";
+ global.textIntro[2] = "They pulled every resource, every idea, to find a way to fight back..."
+ global.textIntro[3] = "and now,we have found it!";
 </string>
           </argument>
         </arguments>
@@ -86,14 +137,55 @@ resolution = shader_get_uniform(shd_ascii,"u_resolution");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(window_get_height() != global.gameHeight*global.zoom &amp;&amp;
-    window_get_width() != global.gameWidth*global.zoom &amp;&amp;
-    !window_get_fullscreen()) {
-    
-    window_set_size(global.gameWidth*global.zoom,global.gameHeight*global.zoom);
-    //display_set_gui_maximise(global.gameHeight*global.zoom,global.gameWidth*global.zoom);
-    surface_resize(application_surface,global.gameWidth,global.gameHeight);
-    display_reset(0,false);
+            <string>    if(window_get_height() != global.gameHeight*global.zoom &amp;&amp;
+       window_get_width() != global.gameWidth*global.zoom &amp;&amp;
+       !window_get_fullscreen()) {
+        
+        window_set_size(global.gameWidth*global.zoom,global.gameHeight*global.zoom);
+        //display_set_gui_maximise(global.gameHeight*global.zoom,global.gameWidth*global.zoom);
+        surface_resize(application_surface,global.gameWidth,global.gameHeight);
+        display_reset(0,false);
+    }
+
+    if(room == Jogo and !instance_exists(obj_nave)){
+        instance_create(200,200,asset_get_index("obj_nave_p"+string(global.piloto+1)))
+    }
+    if(keyboard_check(ord("Q")) and keyboard_check(ord("W")) and keyboard_check_pressed(ord("E"))){
+        if room == Testes then room_goto(Menu);
+        else room_goto(Testes);
+    }
+if(os_type == os_android and room != Jogo){
+        if(device_mouse_check_button_pressed(0, mb_left)){
+            var yy = device_mouse_y(0);
+            if(yy &lt; 100){
+                keyboard_key_press(vk_up);
+            }
+            else if(yy &gt; 300){
+                keyboard_key_press(vk_down);
+            }
+            else
+            {
+                keyboard_key_press(ord("X")); 
+            }
+        }
+        else{
+            keyboard_key_release(vk_up);
+            keyboard_key_release(vk_down);
+            keyboard_key_release(ord("X"));
+        }
+        if(device_mouse_check_button(0, mb_left)){
+            var xx = device_mouse_x(0);
+            if(xx &lt; 160){
+                keyboard_key_press(vk_left);
+            }
+            else if(xx &gt; 560){
+                keyboard_key_press(vk_right);
+            }
+        }
+        else{
+            keyboard_key_release(vk_left);
+            keyboard_key_release(vk_right);
+        }
 }
 </string>
           </argument>
@@ -117,35 +209,32 @@ resolution = shader_get_uniform(shd_ascii,"u_resolution");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*i += 0.01;
-shader_set(shd_ascii);
-draw_surface(application_surface,0,0);
-shader_set_uniform_f(time,i);
-shader_set_uniform_f(resolution,global.gameWidth,global.gameHeight);
-shader_set_uniform_f(mouse,mouse_x,mouse_y);
+            <string>/*shader_set(shd_gb);
+draw_surface(application_surface, 0, 0);
 shader_reset();*/
-
-// Escreve os Kilometros na tela
-draw_set_font(font0);
-if room != Menu then draw_text_transformed_colour(display_get_gui_width()/2-20,30,string(ceil(global.km))+"Km",2,2,0,c_white,c_white,c_white,c_white,1);
-
-// Desenha o combo atual e a barra de combo na tela
-if(global.combo &gt; 0){
-    draw_sprite(spr_barra_combo,0,display_get_gui_width()-120,5);
-    draw_text_transformed(display_get_gui_width()-120,10,global.combo,2,2,0);
-    draw_primitive_begin(pr_trianglefan);
-        draw_vertex_colour(display_get_gui_width()-23-(global.barraCombo*0.87),53,colBarras,1);
-        draw_vertex_colour(display_get_gui_width()-20-(global.barraCombo*0.87),44,colBarras,1);
-        draw_vertex_colour(display_get_gui_width()-20,44,colBarras,1);
-        draw_vertex_colour(display_get_gui_width()-23,53,colBarras,1);
-    draw_primitive_end();
-} 
-
-// Desenha o progresso atual do jogador na tela
-if(room == Jogo){
-    draw_sprite(spr_barra_de_progresso,0,display_get_gui_width()/2,10);
-    draw_sprite(spr_indicador_progresso,0,235+global.progresso,17);
-}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_font(global.font);
 </string>
           </argument>
         </arguments>
@@ -178,28 +267,6 @@ if(room == Jogo){
         </arguments>
       </action>
     </event>
-    <event eventtype="9" enumb="32">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string></string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="9" enumb="27">
       <action>
         <libid>1</libid>
@@ -219,6 +286,9 @@ if(room == Jogo){
             <kind>1</kind>
             <string>ini_open("SaveData.sav");
 ini_write_real("Pontos","pontos",global.pontos);
+ini_write_real("Upgrades", "energia", global.Upgrade[0,0]);
+ini_write_real("Upgrades", "impulso", global.Upgrade[1,0]);
+ini_write_real("Upgrades", "spawn_energia", global.Upgrade[2,0]);
 ini_close();
 game_end();
 </string>

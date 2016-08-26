@@ -25,10 +25,19 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>opcao = 0; // Opção atual
-part_emitter_destroy(obj_nave.ps2,obj_nave.pexplo);
+            <string>view_xview[0] = 0
+view_yview[0] = 0
+opcao = 0; // Opção atual
+pontos = obj_nave.pontosExtras;
+part_emitter_destroy(asset_get_index("obj_nave_p"+string(global.piloto+1)).ps2,asset_get_index("obj_nave_p"+string(global.piloto+1)).pexplo);
 with (obj_bala) { part_emitter_destroy_all(ps) }
+with (obj_Energia) {part_emitter_destroy_all(ps)};
+with(obj_inimigo_kamikaze){part_emitter_destroy(ps2,pexplo)};
+with(obj_comboUp){ part_emitter_destroy_all(pscombo)};
 instance_deactivate_all(true);
+
+alpha = 0;
+y = -sprite_height;
 </string>
           </argument>
         </arguments>
@@ -51,31 +60,36 @@ instance_deactivate_all(true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(keyboard_check_pressed(ord("X"))){
-    if(opcao == 0){
-        room_restart();
+            <string>    if(keyboard_check_pressed(ord("X"))){
+        if(opcao == 0){
+            global.velPlayer = 1+(2*global.Upgrade[1,0]);
+            room_restart();
+        }
+        else {
+            room_goto(Canhao);
+        }
+        global.km = 0;
+        
+        // Quando X for pressionado, reseta algumas variáveis
+        global.combo = 0;
+        global.barraCombo = 100;
+        global.dificuldade = 0
+        global.progresso = 0;
+        global.desafios = false;
+        instance_activate_all();
+        instance_destroy();
     }
-    else {
-        room_goto(Canhao);
+    if(keyboard_check_pressed(vk_up)){
+        opcao = 0;
     }
-    global.km = 0;
-    
-    // Quando X for pressionado, reseta algumas variáveis
-    global.combo = 0;
-    global.barraCombo = 100;
-    global.dificuldade = 0
-    global.progresso = 0;
-    global.desafios = false;
-    global.desafioAtual = 1;
-    instance_activate_all();
-    instance_destroy();
-}
-if(keyboard_check_pressed(vk_up)){
-    opcao = 0;
-}
-if(keyboard_check_pressed(vk_down)){
-    opcao = 1;
-}
+    if(keyboard_check_pressed(vk_down)){
+        opcao = 1;
+    }
+
+    if(alpha &lt; 1) {
+        alpha += 0.05;
+    }
+    y = lerp(y,0,0.1);
 </string>
           </argument>
         </arguments>
@@ -98,8 +112,17 @@ if(keyboard_check_pressed(vk_down)){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self();
-draw_rectangle(302,230+(opcao*46),418,272+(opcao*46),true);
+            <string>    draw_sprite_ext(spr_mask,0,0,0,1,1,0,c_white,alpha);
+    draw_self();
+    draw_set_font(global.font);
+    draw_set_halign(fa_center);
+    draw_text_colour(x+357,y+166,string(ceil(global.km)),c_white,c_white,c_white,c_white,1);
+    draw_text_colour(x+357,y+230,string(pontos),c_white,c_white,c_white,c_white,1);
+    
+    draw_set_halign(fa_left);
+    
+    //draw_rectangle(302,230+(opcao*46),418,272+(opcao*46),true);
+    draw_sprite(spr_btn_pause,0,x+302,y+266+(47*opcao));
 </string>
           </argument>
         </arguments>

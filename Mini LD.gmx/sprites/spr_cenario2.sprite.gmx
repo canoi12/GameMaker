@@ -8,8 +8,8 @@
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
   <bbox_left>0</bbox_left>
-  <bbox_right>477</bbox_right>
-  <bbox_top>219</bbox_top>
+  <bbox_right>538</bbox_right>
+  <bbox_top>51</bbox_top>
   <bbox_bottom>399</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
@@ -17,7 +17,7 @@
     <TextureGroup0>0</TextureGroup0>
   </TextureGroups>
   <For3D>0</For3D>
-  <width>600</width>
+  <width>720</width>
   <height>400</height>
   <frames>
     <frame index="0">images\spr_cenario2_0.png</frame>

@@ -28,8 +28,15 @@
             <string>image_speed = 0.4;
 vida = 0;
 pisca = false;
-hspeed = -12;
+hspeed = -12-(global.velPlayer/2);
 pontos = 0;
+
+i = random(0.5);
+qtdSin = 0.1;
+magnitude = 1;
+randomize();
+
+dropEnergia = 0;
 
 // Particles
 ps = part_system_create();
@@ -41,6 +48,7 @@ part_type_speed(pt,2,2.5,0,0);
 part_type_direction(pt,0,270,0,15);
 part_type_size(pt,0.02,0.25,0,0);
 part_type_life(pt,10,20);
+
 </string>
           </argument>
         </arguments>
@@ -63,23 +71,49 @@ part_type_life(pt,10,20);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(!global.pause){
-    if(x &lt; 0){
-        instance_destroy();
+            <string>    if(!global.pause){
+        if(x &lt; 0){
+            instance_destroy();
+        }
+        if(vida &lt;= 0){
+            instance_destroy();
+            pemitter = part_emitter_create(ps);
+            part_emitter_region(ps,pemitter,x,x,y,y,ps_shape_ellipse,ps_distr_linear);
+            part_emitter_burst(ps,pemitter,pt,20);
+            part_emitter_destroy(ps,pemitter);
+            //global.pontos += pontos;
+            global.combo += 1;
+            if (global.combo &lt; 1){ global.barraCombo = 100}
+            else {
+                if(global.barraCombo &lt; 80){
+                    global.barraCombo += 20;
+                }
+            }
+            randomize();
+            var odds = irandom(100);
+            if(odds &lt;= 20){
+                dropEnergia = irandom(5);
+                for(var f = 0;f &lt; dropEnergia;f++){
+                    instance_create(x,y,obj_Energia);
+                }
+            }
+        }
+        pisca = false;
     }
-    if(vida &lt;= 0){
-        instance_destroy();
-        pemitter = part_emitter_create(ps);
-        part_emitter_region(ps,pemitter,x,x,y,y,ps_shape_ellipse,ps_distr_linear);
-        part_emitter_burst(ps,pemitter,pt,20);
-        part_emitter_destroy(ps,pemitter);
-        global.pontos += pontos;
-        global.combo += 1;
-        if (global.combo &lt; 1){ global.barraCombo = 100}
-        else {global.barraCombo += 20;}
-    } 
-    pisca = false;
-}
+    i += qtdSin;
+    if(i mod (pi*2) == 0){
+        i = 0;
+    }
+    y += cos(i)*magnitude
+
+    if(room == Testes){
+        if(mouse_check_button(mb_left)){
+            if(mouse_x &gt; bbox_left and mouse_x &lt; bbox_right and
+               mouse_y &gt; bbox_top and mouse_y &lt; bbox_bottom){
+                vida = 0;
+            }
+        }
+    }
 </string>
           </argument>
         </arguments>
@@ -110,6 +144,31 @@ vida -= 1;
         </arguments>
       </action>
     </event>
+    <event eventtype="4" ename="obj_nave">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>    if(!other.jogar){
+        vida = 0;
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="5">
       <action>
         <libid>1</libid>
@@ -127,9 +186,9 @@ vida -= 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>part_system_destroy(ps);
-part_type_destroy(pt);
-part_emitter_destroy_all(ps);
+            <string>    part_system_destroy(ps);
+    part_type_destroy(pt);
+    part_emitter_destroy_all(ps);
 </string>
           </argument>
         </arguments>
@@ -152,13 +211,23 @@ part_emitter_destroy_all(ps);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(pisca){
-    shader_set(shd_branco);
-    draw_self();
-    shader_reset();
-} else {
-    draw_self();
+            <string>    /*draw_set_alpha(0.2);
+if(y &lt; 150){
+    draw_ellipse_colour(x-25,300,x+25,320,c_black,c_black,false);
 }
+else if(y &lt; 210){
+    draw_ellipse_colour(x-25,150+y,x+25,170+y,c_black,c_black,false);
+} else {
+    draw_ellipse_colour(x-25,360,x+25,380,c_black,c_black,false);
+}
+draw_set_alpha(1);*/
+    if(pisca){
+        shader_set(shd_branco);
+        draw_self();
+        shader_reset();
+    } else {
+        draw_self();
+    }
 </string>
           </argument>
         </arguments>

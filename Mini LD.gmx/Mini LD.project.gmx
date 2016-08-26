@@ -13,48 +13,126 @@
       <sprite>sprites\spr_canhao_idle</sprite>
     </sprites>
     <sprites name="Naves Player">
-      <sprite>sprites\spr_nave_inicio</sprite>
+      <sprite>sprites\spr_nave_inicio_0</sprite>
+      <sprite>sprites\spr_nave_inicio_1</sprite>
+      <sprite>sprites\spr_nave_inicio_2</sprite>
       <sprite>sprites\spr_nave_player_0</sprite>
+      <sprite>sprites\spr_nave_player_1</sprite>
       <sprite>sprites\spr_nave_player_2</sprite>
+      <sprite>sprites\spr_capanga</sprite>
     </sprites>
     <sprites name="Menus">
+      <sprites name="TitleScreen">
+        <sprite>sprites\spr_TitleBg</sprite>
+        <sprite>sprites\spr_TitleText</sprite>
+        <sprite>sprites\spr_TitleParticles</sprite>
+        <sprite>sprites\spr_TitleCursor</sprite>
+      </sprites>
       <sprite>sprites\spr_mask</sprite>
       <sprite>sprites\spr_btn_upgrades</sprite>
       <sprite>sprites\spr_btn_launch</sprite>
+      <sprite>sprites\spr_btn_pause</sprite>
       <sprite>sprites\spr_upgrade</sprite>
       <sprite>sprites\spr_selectchar</sprite>
       <sprite>sprites\spr_selectstage</sprite>
       <sprite>sprites\spr_highscore</sprite>
       <sprite>sprites\spr_chars</sprite>
       <sprite>sprites\spr_pause</sprite>
+      <sprite>sprites\spr_barra_upgrade</sprite>
       <sprite>sprites\spr_score</sprite>
+      <sprite>sprites\spr_nave_menu</sprite>
+      <sprite>sprites\spr_btn_upgrade_yn</sprite>
+      <sprite>sprites\spr_texts_upgrade</sprite>
+      <sprite>sprites\spr_abas_upgrade</sprite>
     </sprites>
     <sprites name="Naves Inimigos">
-      <sprite>sprites\spr_inimigo_kamikaze</sprite>
+      <sprite>sprites\spr_inimigo_minion</sprite>
       <sprite>sprites\spr_inimigo_turret</sprite>
       <sprite>sprites\spr_inimigo_laserbarrier</sprite>
+      <sprite>sprites\spr_inimigo_serpente_head</sprite>
+      <sprite>sprites\spr_inimigo_serpente_body</sprite>
+      <sprite>sprites\spr_inimigo_kamikaze_normal</sprite>
+      <sprite>sprites\spr_inimigo_kamikaze_dano</sprite>
     </sprites>
-    <sprite>sprites\spr_bala</sprite>
-    <sprite>sprites\spr_bullet_turret</sprite>
-    <sprite>sprites\spr_fade</sprite>
-    <sprite>sprites\sprite20</sprite>
-    <sprite>sprites\spr_barra_de_progresso</sprite>
-    <sprite>sprites\spr_indicador_progresso</sprite>
-    <sprite>sprites\spr_barra_combo</sprite>
-    <sprite>sprites\spr_hud</sprite>
+    <sprites name="HUD">
+      <sprite>sprites\spr_barra_de_progresso</sprite>
+      <sprite>sprites\spr_indicador_progresso</sprite>
+      <sprite>sprites\spr_barra_combo</sprite>
+      <sprite>sprites\spr_hud</sprite>
+      <sprite>sprites\spr_icon_piloto</sprite>
+    </sprites>
+    <sprites name="Balas">
+      <sprite>sprites\spr_bala_p1b</sprite>
+      <sprite>sprites\spr_bala_p1</sprite>
+      <sprite>sprites\spr_bala_p2</sprite>
+      <sprite>sprites\spr_bala_p2a</sprite>
+      <sprite>sprites\spr_bala_p2b</sprite>
+      <sprite>sprites\spr_bullet_turret</sprite>
+      <sprite>sprites\spr_bala_capanga</sprite>
+      <sprite>sprites\spr_bullet_kamikazi</sprite>
+    </sprites>
+    <sprites name="Efeitos">
+      <sprite>sprites\spr_fade</sprite>
+      <sprite>sprites\spr_combo_up</sprite>
+      <sprite>sprites\spr_col_explosion</sprite>
+      <sprite>sprites\spr_boss_explosion</sprite>
+      <sprite>sprites\spr_player_hit</sprite>
+      <sprite>sprites\spr_player_explo</sprite>
+    </sprites>
+    <sprites name="CutScenes">
+      <sprite>sprites\spr_Cutscenes</sprite>
+    </sprites>
+    <sprite>sprites\spr_miniBoss_1</sprite>
+    <sprite>sprites\spr_item_energia</sprite>
+    <sprite>sprites\spr_numb_font</sprite>
+    <sprite>sprites\spr_energia_particles</sprite>
+    <sprite>sprites\spr_bala_capanga_2</sprite>
+    <sprite>sprites\spr_Splash</sprite>
   </sprites>
   <backgrounds name="background">
-    <background>background\bg_ceu1</background>
-    <background>background\bg_agua1</background>
-    <background>background\bg_agua2</background>
-    <background>background\bg_agua3</background>
-    <background>background\bg_agua4</background>
-    <background>background\bg_nuvens1</background>
-    <background>background\bg_nuvens2</background>
+    <backgrounds name="Fase1">
+      <backgrounds name="Parte 1">
+        <background>background\bg_ceu1</background>
+        <background>background\bg_agua1</background>
+        <background>background\bg_agua2</background>
+        <background>background\bg_agua3</background>
+        <background>background\bg_agua4</background>
+        <background>background\bg_nuvens1</background>
+        <background>background\bg_nuvens2</background>
+      </backgrounds>
+      <backgrounds name="Parte 2">
+        <background>background\bg_agua1_noite</background>
+        <background>background\bg_agua2_noite</background>
+        <background>background\bg_agua3_noite</background>
+        <background>background\bg_agua4_noite</background>
+        <background>background\bg_ceu_noite</background>
+        <background>background\bg_nuvens1_noite</background>
+        <background>background\bg_nuvens2_noite</background>
+        <background>background\bg_nuvens3_noite</background>
+      </backgrounds>
+    </backgrounds>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\scr_InitGame.gml</script>
+    <script>scripts\scr_tiroDaNave.gml</script>
+    <script>scripts\scr_partTurbina.gml</script>
+    <script>scripts\scr_quad_easing_in_out.gml</script>
+    <script>scripts\scr_comboUp.gml</script>
+    <script>scripts\iif.gml</script>
+    <scripts name="Bosses">
+      <scripts name="Boss1">
+        <script>scripts\scr_boss1_shoot_state.gml</script>
+        <script>scripts\scr_boss1_laser_state.gml</script>
+        <script>scripts\scr_boss1_wait_state.gml</script>
+      </scripts>
+    </scripts>
+    <scripts name="Ships">
+      <script>scripts\scr_ship_launch_state.gml</script>
+      <script>scripts\scr_ship_move_state.gml</script>
+      <script>scripts\scr_ship_fall_state.gml</script>
+    </scripts>
+    <script>scripts\scr_write_text.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_branco.shader</shader>
@@ -66,17 +144,30 @@
     <font>fonts\font0</font>
   </fonts>
   <objects name="objects">
+    <object>objects\obj_Controle</object>
+    <objects name="Naves Player">
+      <object>objects\obj_nave</object>
+      <object>objects\obj_nave_p1</object>
+      <object>objects\obj_nave_p2</object>
+      <object>objects\obj_nave_p3</object>
+    </objects>
     <objects name="Inimigos">
       <object>objects\obj_inimigo_turret</object>
-      <object>objects\obj_inimigo_kamikaze</object>
+      <object>objects\obj_inimigo_minion</object>
       <object>objects\obj_Inimigo</object>
       <object>objects\obj_inimigo_laserbarrier</object>
+      <object>objects\obj_inimigo_serpente_head</object>
+      <object>objects\obj_inimigo_serpente_body</object>
+      <object>objects\obj_inimigo_kamikaze</object>
     </objects>
     <objects name="Balas">
       <object>objects\obj_bullet_turret</object>
       <object>objects\obj_bala</object>
       <object>objects\obj_Bullet</object>
       <object>objects\obj_bullet_laser</object>
+      <object>objects\obj_bala_capanga</object>
+      <object>objects\obj_bala_miniBoss</object>
+      <object>objects\obj_bullet_kamikazi</object>
     </objects>
     <objects name="Cenario">
       <object>objects\obj_cenario1</object>
@@ -89,18 +180,34 @@
       <object>objects\obj_Menu</object>
       <object>objects\obj_Hangar</object>
       <object>objects\obj_scoreScreen</object>
+      <object>objects\obj_Cutscene</object>
+      <object>objects\obj_Splash</object>
     </objects>
-    <object>objects\obj_nave</object>
+    <objects name="Bosses">
+      <object>objects\obj_Boss</object>
+      <object>objects\obj_miniBoss_1</object>
+    </objects>
+    <object>objects\obj_capanga</object>
     <object>objects\obj_fase</object>
     <object>objects\obj_shake</object>
-    <object>objects\obj_Controle</object>
     <object>objects\obj_fade</object>
+    <object>objects\obj_Hud</object>
+    <object>objects\obj_ControlBackground</object>
+    <object>objects\obj_explosion</object>
+    <object>objects\obj_teste</object>
+    <object>objects\obj_Energia</object>
+    <object>objects\obj_comboUp</object>
+    <object>objects\obj_Text</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\Splash</room>
     <room>rooms\Menu</room>
+    <room>rooms\Cutscenes</room>
     <room>rooms\Canhao</room>
     <room>rooms\Jogo</room>
+    <room>rooms\Testes</room>
     <room>rooms\Hangar</room>
+    <room>rooms\rm_text_test</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
