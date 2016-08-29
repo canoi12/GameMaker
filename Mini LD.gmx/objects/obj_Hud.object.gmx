@@ -112,7 +112,8 @@ if(global.combo &gt; 0){
     draw_vertex_colour(display_get_gui_width()-31,y+74,global.colBarras,1);
     draw_primitive_end();*/
     draw_sprite(spr_barra_combo,0,display_get_gui_width()-128,y+326);
-    draw_text_transformed_colour(display_get_gui_width()-110,y+326,global.combo,2,2,0,c_white,c_white,c_white,c_white,1);
+    //draw_text_transformed_colour(display_get_gui_width()-110,y+326,global.combo,2,2,0,c_white,c_white,c_white,c_white,1);
+    draw_text_transformed_colour(display_get_gui_width()-70,y+326,global.combo,2,2,0,c_white,c_white,c_white,c_white,1);
     draw_primitive_begin(pr_trianglefan);
     draw_vertex_colour(display_get_gui_width()-31-(global.barraCombo*0.87),y+374,global.colBarras,1);
     draw_vertex_colour(display_get_gui_width()-28-(global.barraCombo*0.87),y+365,global.colBarras,1);

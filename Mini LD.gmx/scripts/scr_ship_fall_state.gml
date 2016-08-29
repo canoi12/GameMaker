@@ -11,6 +11,7 @@ if(y > room_height){
 part_emitter_destroy(ps,pemitter);
 part_emitter_region(ps2,pexplo,x-25,x+25,y,y+6,ps_shape_ellipse,ps_distr_gaussian);
 part_emitter_stream(ps2,pexplo,pt2,2);
+hspeed = 8
 
 gravity = 0.7;
 

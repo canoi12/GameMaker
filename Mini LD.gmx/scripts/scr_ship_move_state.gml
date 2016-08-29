@@ -97,7 +97,7 @@ pontosExtras += 10*global.combo;
 
 // Sistema de Combo
 if(global.combo > 0){
-    global.barraCombo -= 1;
+    global.barraCombo -= 0.5;
 }
 if(global.barraCombo < 0){
     global.barraCombo = 0;
